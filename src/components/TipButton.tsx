@@ -65,7 +65,7 @@ export default function TipButton({ className = '' }: TipButtonProps) {
                             }],
                         });
 
-                        alert(`Tip gönderildi! 🎉\nTx: ${txHash.slice(0, 10)}...`);
+                        alert(`Tip sent! 🎉\nTx: ${txHash.slice(0, 10)}...`);
                         setIsOpen(false);
                         return;
                     }
@@ -81,7 +81,7 @@ export default function TipButton({ className = '' }: TipButtonProps) {
                 });
 
                 if (!accounts || accounts.length === 0) {
-                    alert('Cüzdan bağlantısı reddedildi');
+                    alert('Wallet connection rejected');
                     return;
                 }
 
@@ -121,7 +121,7 @@ export default function TipButton({ className = '' }: TipButtonProps) {
                     }],
                 });
 
-                alert(`Tip gönderildi! 🎉\nTx: ${txHash.slice(0, 10)}...`);
+                alert(`Tip sent! 🎉\nTx: ${txHash.slice(0, 10)}...`);
                 setIsOpen(false);
             } else {
                 // No wallet - open Coinbase Wallet
@@ -130,7 +130,7 @@ export default function TipButton({ className = '' }: TipButtonProps) {
         } catch (error: any) {
             console.error('Tip error:', error);
             if (error.code !== 4001) {
-                alert('Tip gönderilemedi: ' + (error.message || 'Bilinmeyen hata'));
+                alert('Failed to send tip: ' + (error.message || 'Unknown error'));
             }
         } finally {
             setIsLoading(false);
@@ -151,16 +151,16 @@ export default function TipButton({ className = '' }: TipButtonProps) {
             {isOpen && (
                 <div className="tip-dropdown">
                     <div className="tip-header">
-                        <span>Base Pulse&apos;a Destek Ol</span>
+                        <span>Support Base Pulse</span>
                         <button className="tip-close" onClick={() => setIsOpen(false)}>✕</button>
                     </div>
 
                     {/* Wallet indicator */}
                     <div className="tip-wallet-info">
                         {isInFrame ? (
-                            <span>🟣 Farcaster Cüzdanı</span>
+                            <span>🟣 Farcaster Wallet</span>
                         ) : (
-                            <span>🔵 Coinbase / Web3 Cüzdan</span>
+                            <span>🔵 Coinbase / Web3 Wallet</span>
                         )}
                     </div>
 
@@ -177,7 +177,7 @@ export default function TipButton({ className = '' }: TipButtonProps) {
                         ))}
                     </div>
                     <div className="tip-footer">
-                        <span>Base Ağı üzerinden</span>
+                        <span>Via Base Network</span>
                     </div>
                 </div>
             )}

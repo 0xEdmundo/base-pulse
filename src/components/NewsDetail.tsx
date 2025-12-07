@@ -102,7 +102,7 @@ export default function NewsDetail({ news, onClose, appUrl = '' }: NewsDetailPro
                     {news.originalLink && (
                         <button className="news-detail-source" onClick={handleViewSource}>
                             <span className="source-icon">🔗</span>
-                            <span>Kaynağı Görüntüle</span>
+                            <span>View Source</span>
                             <span className="source-hint">
                                 {news.sourceType === 'FARCASTER'
                                     ? `@${news.project.farcasterUsername}`
@@ -135,7 +135,7 @@ export default function NewsDetail({ news, onClose, appUrl = '' }: NewsDetailPro
                     {news.project.websiteUrl && (
                         <button className="action-btn website-btn" onClick={handleVisitWebsite}>
                             <span className="action-icon">🌐</span>
-                            <span className="action-label">Siteyi Ziyaret Et</span>
+                            <span className="action-label">Visit Website</span>
                         </button>
                     )}
                 </div>

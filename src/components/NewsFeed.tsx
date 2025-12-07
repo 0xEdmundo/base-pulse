@@ -80,7 +80,7 @@ export default function NewsFeed({ onSelectNews }: NewsFeedProps) {
         return (
             <div className="news-feed">
                 <div className="news-feed-header">
-                    <h2>📡 Son Haberler</h2>
+                    <h2>📡 Latest News</h2>
                 </div>
                 <div className="news-feed-loading">
                     {[...Array(3)].map((_, i) => (
@@ -102,12 +102,12 @@ export default function NewsFeed({ onSelectNews }: NewsFeedProps) {
         return (
             <div className="news-feed">
                 <div className="news-feed-header">
-                    <h2>📡 Son Haberler</h2>
+                    <h2>📡 Latest News</h2>
                 </div>
                 <div className="news-feed-empty">
                     <span className="empty-icon">📭</span>
-                    <p>Henüz haber yok</p>
-                    <span className="empty-hint">Haberler her 10 dakikada güncellenir</span>
+                    <p>No news yet</p>
+                    <span className="empty-hint">News updates every 10 minutes</span>
                 </div>
             </div>
         );
@@ -116,8 +116,8 @@ export default function NewsFeed({ onSelectNews }: NewsFeedProps) {
     return (
         <div className="news-feed">
             <div className="news-feed-header">
-                <h2>📡 Son Haberler</h2>
-                <span className="news-count">{news.length} haber</span>
+                <h2>📡 Latest News</h2>
+                <span className="news-count">{news.length} items</span>
             </div>
 
             <div className="news-feed-list">
@@ -135,12 +135,12 @@ export default function NewsFeed({ onSelectNews }: NewsFeedProps) {
                 {isLoadingMore && (
                     <div className="loading-more">
                         <span className="loading-spinner"></span>
-                        <span>Daha fazla yükleniyor...</span>
+                        <span>Loading more...</span>
                     </div>
                 )}
                 {!hasMore && news.length > 0 && (
                     <div className="no-more">
-                        <span>🎉 Tüm haberler yüklendi</span>
+                        <span>🎉 All news loaded</span>
                     </div>
                 )}
             </div>

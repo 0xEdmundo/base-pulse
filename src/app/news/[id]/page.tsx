@@ -58,7 +58,7 @@ export default function NewsDetailPage() {
         return (
             <div className="news-page-loading">
                 <div className="loading-spinner"></div>
-                <span>Yükleniyor...</span>
+                <span>Loading...</span>
             </div>
         );
     }
@@ -67,8 +67,8 @@ export default function NewsDetailPage() {
         return (
             <div className="news-page-error">
                 <span className="error-icon">😕</span>
-                <h1>Haber Bulunamadı</h1>
-                <button onClick={() => router.push('/')}>Ana Sayfaya Dön</button>
+                <h1>News Not Found</h1>
+                <button onClick={() => router.push('/')}>Go to Home</button>
             </div>
         );
     }
@@ -77,7 +77,7 @@ export default function NewsDetailPage() {
         <main className="news-page">
             {/* Back Button */}
             <button className="back-button" onClick={() => router.back()}>
-                ← Geri
+                ← Back
             </button>
 
             {/* Image */}
@@ -138,7 +138,7 @@ export default function NewsDetailPage() {
                             onClick={() => window.open(news.project.websiteUrl!, '_blank')}
                         >
                             <span>🌐</span>
-                            <span>Siteyi Ziyaret Et</span>
+                            <span>Visit Website</span>
                         </button>
                     )}
                 </div>

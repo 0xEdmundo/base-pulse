@@ -35,7 +35,7 @@ export default function Ticker() {
                 <TipButton />
                 <div className="ticker-loading">
                     <span className="ticker-dot"></span>
-                    <span>Yükleniyor...</span>
+                    <span>Loading...</span>
                 </div>
             </div>
         );

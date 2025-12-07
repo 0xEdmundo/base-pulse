@@ -1,25 +1,27 @@
 # Base Pulse 🟦
 
-Base ağı için haber toplayıcı (News Aggregator) - Web, Farcaster Frame v2 ve Base App uyumlu.
+A news aggregator for the Base network - compatible with Web, Farcaster Frame v2, and Base App.
 
-## 🚀 Özellikler
+## 🚀 Features
 
-- **Ticker**: ETH fiyatı ve Base'deki en çok kazandıran/kaybettiren tokenlar
-- **Highlights Slider**: Resmi kaynaklardan (Base, Coinbase) öne çıkan haberler
-- **Live Feed**: Tüm projelerden son haberler - sonsuz kaydırma
-- **Farcaster Entegrasyonu**: Frame v2, paylaşım intent'leri, bildirimler
-- **Otomatik Güncelleme**: Her 10 dakikada veri çekme, 48 saat sonra temizleme
+- **Ticker**: ETH price and top gainers/losers on Base
+- **Highlights Slider**: Featured news from official sources (Base, Coinbase)
+- **Live Feed**: Latest news from all projects - infinite scroll
+- **Farcaster Integration**: Frame v2, share intents, notifications
+- **Tip Feature**: Support the app with ETH via Farcaster or Coinbase Wallet
+- **Auto-Update**: Data fetching every 10 minutes, cleanup after 48 hours
 
-## 📦 Teknoloji
+## 📦 Tech Stack
 
 - **Framework**: Next.js 14+ (App Router)
 - **Styling**: Tailwind CSS
 - **Database**: Vercel Postgres + Prisma
-- **APIs**: Neynar (Farcaster), DEXScreener (Fiyatlar)
+- **APIs**: Neynar (Farcaster), DEXScreener (Prices)
+- **Wallet**: Farcaster Wallet, Coinbase Wallet
 
-## 🛠️ Kurulum
+## 🛠️ Setup
 
-### 1. Bağımlılıkları Yükle
+### 1. Install Dependencies
 
 ```bash
 npm install
@@ -27,53 +29,55 @@ npm install
 
 ### 2. Environment Variables
 
-Vercel Dashboard'da veya `.env.local` dosyasında:
+In Vercel Dashboard or `.env.local`:
 
 ```env
 POSTGRES_PRISMA_URL="postgresql://..."
 POSTGRES_URL_NON_POOLING="postgresql://..."
-NEYNAR_API_KEY="201DD486-79A0-4B6F-B0C2-E719646F3A33"
+NEYNAR_API_KEY="your-neynar-api-key"
 CRON_SECRET="your-secret-here"
 NEXT_PUBLIC_APP_URL="https://your-app.vercel.app"
 ```
 
-### 3. Veritabanı Kurulumu
+### 3. Database Setup
 
 ```bash
 npm run db:push
 npm run db:seed
 ```
 
-### 4. Geliştirme
+### 4. Development
 
 ```bash
 npm run dev
 ```
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
 ```
 base-pulse/
 ├── prisma/
-│   ├── schema.prisma    # Veritabanı şeması
-│   └── seed.ts          # 15 proje seed data
+│   ├── schema.prisma    # Database schema
+│   └── seed.ts          # 15 project seed data
 ├── src/
 │   ├── app/
 │   │   ├── api/         # API routes
-│   │   │   ├── ticker/  # Fiyat verileri
-│   │   │   ├── news/    # Haber feed
-│   │   │   ├── cron/    # Otomatik görevler
+│   │   │   ├── ticker/  # Price data
+│   │   │   ├── news/    # News feed
+│   │   │   ├── cron/    # Automated tasks
 │   │   │   └── webhook/ # Farcaster webhooks
-│   │   ├── news/[id]/   # Haber detay sayfası
-│   │   └── page.tsx     # Ana sayfa
+│   │   ├── news/[id]/   # News detail page
+│   │   └── page.tsx     # Main page
 │   ├── components/
-│   │   ├── Ticker.tsx   # Kayan fiyat bandı
+│   │   ├── Ticker.tsx   # Scrolling price bar
+│   │   ├── TipButton.tsx# Tip/donation button
 │   │   ├── HighlightsSlider.tsx
 │   │   ├── NewsFeed.tsx
 │   │   ├── NewsCard.tsx
 │   │   ├── NewsDetail.tsx
 │   │   └── ShareButton.tsx
 │   └── lib/
+│       ├── config.ts    # App configuration
 │       ├── db.ts        # Prisma client
 │       ├── dexscreener.ts
 │       ├── neynar.ts
@@ -84,23 +88,31 @@ base-pulse/
 
 ## 🔄 Cron Jobs (Vercel)
 
-- `/api/cron/fetch-data`: Her 10 dakikada veri çekme
-- `/api/cron/cleanup`: Her saatte 48+ saat eski verileri silme
+- `/api/cron/fetch-data`: Fetch data every 10 minutes
+- `/api/cron/cleanup`: Delete expired data (48+ hours) every hour
 
 ## 🚀 Deployment
 
-1. GitHub'a push
-2. Vercel'e bağla
-3. Environment variables ekle
+1. Push to GitHub
+2. Connect to Vercel
+3. Add environment variables
 4. Deploy!
 
 ## 📱 Farcaster Frame
 
-Uygulama otomatik olarak Farcaster Frame v2 uyumludur:
+The app is automatically Farcaster Frame v2 compatible:
 - `/.well-known/farcaster.json` manifest
-- Mini app bildirimleri
-- Paylaşım intent'leri
+- Mini app notifications
+- Share intents
 
-## 📄 Lisans
+## 💎 Tip Feature
+
+Users can tip the app using:
+- Farcaster Wallet (when in Frame)
+- Coinbase Wallet (in browser)
+
+Update the tip contract address in `src/lib/config.ts`.
+
+## 📄 License
 
 MIT

@@ -66,7 +66,7 @@ export default function HighlightsSlider({ onSelectNews }: HighlightsSliderProps
             <div className="highlights-container">
                 <div className="highlights-empty">
                     <span className="highlights-empty-icon">📰</span>
-                    <p>Henüz öne çıkan haber yok</p>
+                    <p>No featured news yet</p>
                 </div>
             </div>
         );
@@ -76,7 +76,7 @@ export default function HighlightsSlider({ onSelectNews }: HighlightsSliderProps
         <div className="highlights-container">
             <h2 className="highlights-title">
                 <span className="highlights-icon">✨</span>
-                Öne Çıkanlar
+                Highlights
             </h2>
 
             <div
