@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Base Pulse 🟦
 
-## Getting Started
+Base ağı için haber toplayıcı (News Aggregator) - Web, Farcaster Frame v2 ve Base App uyumlu.
 
-First, run the development server:
+## 🚀 Özellikler
+
+- **Ticker**: ETH fiyatı ve Base'deki en çok kazandıran/kaybettiren tokenlar
+- **Highlights Slider**: Resmi kaynaklardan (Base, Coinbase) öne çıkan haberler
+- **Live Feed**: Tüm projelerden son haberler - sonsuz kaydırma
+- **Farcaster Entegrasyonu**: Frame v2, paylaşım intent'leri, bildirimler
+- **Otomatik Güncelleme**: Her 10 dakikada veri çekme, 48 saat sonra temizleme
+
+## 📦 Teknoloji
+
+- **Framework**: Next.js 14+ (App Router)
+- **Styling**: Tailwind CSS
+- **Database**: Vercel Postgres + Prisma
+- **APIs**: Neynar (Farcaster), DEXScreener (Fiyatlar)
+
+## 🛠️ Kurulum
+
+### 1. Bağımlılıkları Yükle
+
+```bash
+npm install
+```
+
+### 2. Environment Variables
+
+Vercel Dashboard'da veya `.env.local` dosyasında:
+
+```env
+POSTGRES_PRISMA_URL="postgresql://..."
+POSTGRES_URL_NON_POOLING="postgresql://..."
+NEYNAR_API_KEY="201DD486-79A0-4B6F-B0C2-E719646F3A33"
+CRON_SECRET="your-secret-here"
+NEXT_PUBLIC_APP_URL="https://your-app.vercel.app"
+```
+
+### 3. Veritabanı Kurulumu
+
+```bash
+npm run db:push
+npm run db:seed
+```
+
+### 4. Geliştirme
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Proje Yapısı
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+base-pulse/
+├── prisma/
+│   ├── schema.prisma    # Veritabanı şeması
+│   └── seed.ts          # 15 proje seed data
+├── src/
+│   ├── app/
+│   │   ├── api/         # API routes
+│   │   │   ├── ticker/  # Fiyat verileri
+│   │   │   ├── news/    # Haber feed
+│   │   │   ├── cron/    # Otomatik görevler
+│   │   │   └── webhook/ # Farcaster webhooks
+│   │   ├── news/[id]/   # Haber detay sayfası
+│   │   └── page.tsx     # Ana sayfa
+│   ├── components/
+│   │   ├── Ticker.tsx   # Kayan fiyat bandı
+│   │   ├── HighlightsSlider.tsx
+│   │   ├── NewsFeed.tsx
+│   │   ├── NewsCard.tsx
+│   │   ├── NewsDetail.tsx
+│   │   └── ShareButton.tsx
+│   └── lib/
+│       ├── db.ts        # Prisma client
+│       ├── dexscreener.ts
+│       ├── neynar.ts
+│       ├── rss-parser.ts
+│       └── farcaster.ts
+└── vercel.json          # Cron job config
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔄 Cron Jobs (Vercel)
 
-## Learn More
+- `/api/cron/fetch-data`: Her 10 dakikada veri çekme
+- `/api/cron/cleanup`: Her saatte 48+ saat eski verileri silme
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. GitHub'a push
+2. Vercel'e bağla
+3. Environment variables ekle
+4. Deploy!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 Farcaster Frame
 
-## Deploy on Vercel
+Uygulama otomatik olarak Farcaster Frame v2 uyumludur:
+- `/.well-known/farcaster.json` manifest
+- Mini app bildirimleri
+- Paylaşım intent'leri
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 Lisans
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

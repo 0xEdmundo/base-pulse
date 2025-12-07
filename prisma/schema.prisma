@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model Project {
+  id              String    @id @default(uuid())
+  name            String
+  farcasterUsername String?   @map("farcaster_username")
+  farcasterFid    String?   @map("farcaster_fid")
+  websiteUrl      String?   @map("website_url")
+  logoUrl         String?   @map("logo_url")
+  rssUrl          String?   @map("rss_url")
+  category        Category
+  priority        Priority  @default(NORMAL)
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  news            NewsFeed[]
+
+  @@map("projects")
+}
+
+model NewsFeed {
+  id              String    @id @default(uuid())
+  sourceProjectId String    @map("source_project_id")
+  project         Project   @relation(fields: [sourceProjectId], references: [id], onDelete: Cascade)
+  title           String
+  content         String?   @db.Text
+  imageUrl        String?   @map("image_url")
+  originalLink    String?   @map("original_link")
+  sourceType      SourceType @default(FARCASTER) @map("source_type")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  expiresAt       DateTime  @map("expires_at")
+  likes           Int       @default(0)
+
+  @@index([sourceProjectId])
+  @@index([expiresAt])
+  @@index([createdAt(sort: Desc)])
+  @@map("news_feed")
+}
+
+model TickerCache {
+  id        String   @id @default("ticker")
+  data      Json
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("ticker_cache")
+}
+
+enum Category {
+  OFFICIAL
+  DEFI
+  NFT
+  SOCIAL
+  SOCIALFI
+  MEME
+  LIFESTYLE
+  CONTENT
+  INFLUENCER
+  WALLET
+  GAMING
+}
+
+enum Priority {
+  CRITICAL
+  HIGH
+  NORMAL
+  LOW
+}
+
+enum SourceType {
+  FARCASTER
+  RSS
+  TWITTER
+}
